@@ -1,5 +1,10 @@
 // Assignment code here
 
+var lowercaseCharSet = "abcdefghijklmnopqrstuvwxyz";
+var uppercaseCharSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numericCharSet = "0123456789";
+var specialCharset = "~`! @#$%^&*()_-+={[}]|;'<>.?/";
+
 // Asking for input for password length here
 var getPasswordLength = function() {
   var passwordlength = "";
@@ -32,8 +37,10 @@ var getCaseValue = function () {
 
   switch (getCaseValueOptionPrompt) {
     case 1:
+      getCaseValueOptionPrompt = "UPPERCASE";
       return getCaseValueOptionPrompt;
     case 2:
+      getCaseValueOptionPrompt = "lowercase";
       return getCaseValueOptionPrompt;
 
   default:
@@ -45,37 +52,96 @@ var getCaseValue = function () {
 
 };
 
+// asking user if they want numeric values in the password
+var getNumericValue = function () {
+    var getNumericValueOptionPrompt = window.prompt(
+      "Would you like numeric values in your password? Please enter 1 for 'Yes' or 2 for 'No'."
+    );
+
+    getNumericValueOptionPrompt = parseInt(getNumericValueOptionPrompt);
+
+    // use switch to carry out action
+
+    switch (getNumericValueOptionPrompt) {
+      case 1:
+        getNumericValueOptionPrompt = "Numeric";
+        return getNumericValueOptionPrompt;
+      case 2:
+        getNumericValueOptionPrompt = "No Numeric";
+        return getNumericValueOptionPrompt;
+
+    default:
+      window.alert("You did not enter a valid option. Please enter the value 1 or 2.")
+      return getNumericValue();
+    }
+};
+
+// asking user if they want special characters added to their password
+
+var getSpecialValue = function () {
+  var getSpecialValueOptionPrompt = window.prompt (
+    "Would you like special charcaters such as these added to your password '$ % & # !'. Please enter 1 for 'Yes' or 2 for 'No'"
+    );
+
+    getSpecialValueOptionPrompt = parseInt(getSpecialValueOptionPrompt);
+
+    // use switch tto carry out action
+
+    switch (getSpecialValueOptionPrompt) {
+      case 1:
+        getSpecialValueOptionPrompt = "special";
+        return getSpecialValueOptionPrompt;
+      case 2:
+        getSpecialValueOptionPrompt = "No special";
+        return getSpecialValueOptionPrompt;
+    
+        default:
+          window.alert("You did not enter a valid option. Please enter the value 1 or 2.")
+      return getSpecialValue();
+    }
+};
+
+// var GetCharacterSet = function () {
+
+//   debugger;
+//   var charsettemp = getCaseValueOptionPrompt;
+
+//   if (getCaseValueOptionPrompt = "UPPERCASE"){
+//     charsettemp = uppercaseCharSet;
+//   } 
+//   else if (getCaseValueOptionPrompt = "lowercase") {
+//     charsettemp = lowercaseCharSet;
+//   }
+//   return charsettemp;
+// };
 
 
 // password values here
 var UserPassword ={
     length: getPasswordLength(),
     CaseValue: getCaseValue(),
-    numeric: true,
-    specialCharacter: true,
-
-  // setUppercase: function() {
-  //   this.CaseValue = "UPPERCASE";
-  // },
-
-  // setLowercase: function() {
-  //   this.CaseValue = "lowercase";
-  // },
-
+    numeric: getNumericValue(),
+    specialCharacter: getSpecialValue(),
+    charSet: "",
 }
+
+
+ 
+
 
 
 console.log("Your password length has been recorded as " + UserPassword.length );
 console.log("you have chosen your character case type as " + UserPassword.CaseValue);
-
-
+console.log("You have chosen your numeric value as " + UserPassword.numeric);
+console.log("You have chosen this response for special characters " + UserPassword.specialCharacter);
+console.log("Your Password will be " + UserPassword.length + " characters in length." + " You have chosen " + UserPassword.CaseValue + ",  " + UserPassword.numeric + ", and " + UserPassword.specialCharacter +" characters.");
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
   //var password = generatePassword();
-  var password = UserPassword.length;
+  var password = UserPassword.charSet;
   var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
