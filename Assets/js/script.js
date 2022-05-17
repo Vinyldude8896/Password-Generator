@@ -7,23 +7,21 @@ var getPasswordLength = function() {
       passwordlength = prompt (" Let me know how many characters should be in your password, choose a number between 8 and 128");
   }
 
-  // pazrsing password value into integer
+  // parsing password value into integer
   passwordlength = parseInt(passwordlength);
 
-  if (passwordlength < 8 ) {
-     window.alert("Sorry, but your password must be at least 8 characters in length. Please input again.")
+  // chacking to make sure password length input is not less than 8 and not greater than 128
+  if (passwordlength < 8 || passwordlength > 128) {
+     window.alert("Sorry, but your password must be between 8 and 128 characters in length. Please input again.")
      console.log("original number choice was " + passwordlength);
-     getPasswordLength();
+     return getPasswordLength();
   }
-  else{
   console.log("You have chosen a password length of " + passwordlength);
   return passwordlength;
-  }
 };
 
-
 // password values here
-var password ={
+var UserPassword ={
     length: getPasswordLength(),
     uppercase: false,
     lowercase: true,
@@ -33,13 +31,15 @@ var password ={
 }
 
 
+console.log("Your password length has been recorded as " + UserPassword.length );
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  //var password = generatePassword();
+  var password = UserPassword.length;
   var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
