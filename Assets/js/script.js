@@ -1,5 +1,4 @@
-// Assignment code here
-
+// assigning possible character sets 
 var lowercaseCharSet = "abcdefghijklmnopqrstuvwxyz";
 var uppercaseCharSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numericCharSet = "0123456789";
@@ -8,6 +7,8 @@ var specialCharset = "~`! @#$%^&*()_-+={[}]|;'<>.?/";
 // Asking for input for password length here
 var getPasswordLength = function() {
   var passwordlength = "";
+
+    // checking to make sure password input is not empty
     while (passwordlength === "" || passwordlength === null) {
       passwordlength = prompt (" Let me know how many characters should be in your password, choose a number between 8 and 128");
   }
@@ -29,9 +30,10 @@ var getCaseValue = function () {
     "Would you like UPPERCASE or lowercase characters? Please enter 1 for UPPERCASE or 2 for lowercase."
   );
 
+  // changing input value to integer
   getCaseValueOptionPrompt = parseInt(getCaseValueOptionPrompt);
 
-  // use switch case to carry out action
+  // use switch case to assign value of uppercase or lowercase
 
   switch (getCaseValueOptionPrompt) {
     case 1:
@@ -41,6 +43,7 @@ var getCaseValue = function () {
       getCaseValueOptionPrompt = "lowercase";
       return getCaseValueOptionPrompt;
 
+  // if user did not enter a valid response
   default:
     window.alert("You did not choose a valid option. Please try again.")
 
@@ -55,9 +58,10 @@ var getNumericValue = function () {
       "Would you like numeric values in your password? Please enter 1 for 'Yes' or 2 for 'No'."
     );
 
+    // changing value to integer
     getNumericValueOptionPrompt = parseInt(getNumericValueOptionPrompt);
 
-    // use switch to carry out action
+    // use switch to assign values of Numeric or no Numeric
 
     switch (getNumericValueOptionPrompt) {
       case 1:
@@ -67,6 +71,7 @@ var getNumericValue = function () {
         getNumericValueOptionPrompt = "No Numeric";
         return getNumericValueOptionPrompt;
 
+    // asking user to input again if invalid response
     default:
       window.alert("You did not enter a valid option. Please enter the value 1 or 2.")
       return getNumericValue();
@@ -80,9 +85,10 @@ var getSpecialValue = function () {
     "Would you like special charcaters such as these added to your password '$ % & # !'. Please enter 1 for 'Yes' or 2 for 'No'"
     );
 
+    // changing response to integer
     getSpecialValueOptionPrompt = parseInt(getSpecialValueOptionPrompt);
 
-    // use switch to carry out action
+    // use switch to assign values of special character choice
 
     switch (getSpecialValueOptionPrompt) {
       case 1:
@@ -92,6 +98,7 @@ var getSpecialValue = function () {
         getSpecialValueOptionPrompt = "No special";
         return getSpecialValueOptionPrompt;
     
+        // ask user to input value again if not valid
         default:
           window.alert("You did not enter a valid option. Please enter the value 1 or 2.")
       return getSpecialValue();
@@ -99,7 +106,7 @@ var getSpecialValue = function () {
 };
 
 
-// password values here
+// User password input values are here
 var UserPassword ={
     length: getPasswordLength(),
     CaseValue: getCaseValue(),
@@ -107,45 +114,48 @@ var UserPassword ={
     specialCharacter: getSpecialValue(),
 };
 
-
+// generating password function
 var generatePassword = function () {
 
   // start with empty string for character set
   var concatString = "";
   // var concatString2 = "";
 
-  // Check to see if case value is set to UPPERCASE
+  // Check to see if case value is set to UPPERCASE and if so concat uppercaseCharSet
   if (UserPassword.CaseValue === "UPPERCASE") {
     concatString = concatString.concat(uppercaseCharSet);
 
-    // if it is UPPERCASE - Also check to see if numeric is set to yes
+    // if it is UPPERCASE - Also check to see if numeric is set to yes and concat numericCharSet
     if (UserPassword.numeric === "Numeric"){
       concatString = concatString.concat(numericCharSet);
     }
 
-    // Also check to see if UPPERCASE incluse special characters
+    // Also check to see if UPPERCASE include special characters and if so concat numericCharSet
     if (UserPassword.specialCharacter === "special") {
       concatString = concatString.concat(specialCharset);
     }
 
   }
-    // check to see if case value was lowercase
+    // check to see if case value was lowercase and if so concat lowercaseCharSet
     if (UserPassword.CaseValue === "lowercase") {
       concatString = concatString.concat(lowercaseCharSet);
  
 
-    // if it is lowercase - Also check to see if numeric is set to yes
+    // if it is lowercase - Also check to see if numeric is set to yes and concat numericCharSet
     if (UserPassword.numeric === "Numeric"){
       concatString = concatString.concat(numericCharSet);
     }
 
-    // Also check to see if lowercase incluse special characters
+    // Also check to see if lowercase incluse special characters and if so concat numericCharSet
     if (UserPassword.specialCharacter === "special") {
       concatString = concatString.concat(specialCharset);
     }
   }
 
+  // setting empty password string
   var passwordstring = "";
+
+  // loop through the concatstring and choose random characters until the character length is met
   for ( var length = 0; length < UserPassword.length; length ++) {
     passwordstring += concatString.charAt(Math.floor(Math.random() * length));
   }
