@@ -18,10 +18,8 @@ var getPasswordLength = function() {
   // chacking to make sure password length input is not less than 8 and not greater than 128
   if (passwordlength < 8 || passwordlength > 128) {
      window.alert("Sorry, but your password must be between 8 and 128 characters in length. Please input again.")
-        console.log("original number choice was " + passwordlength);
           return getPasswordLength();
   }
-  console.log("You have chosen a password length of " + passwordlength);
       return passwordlength;
 };
 
@@ -49,7 +47,6 @@ var getCaseValue = function () {
     // call getCaseValue again to force input from user
     return getCaseValue();
   }
-
 };
 
 // asking user if they want numeric values in the password
@@ -85,7 +82,7 @@ var getSpecialValue = function () {
 
     getSpecialValueOptionPrompt = parseInt(getSpecialValueOptionPrompt);
 
-    // use switch tto carry out action
+    // use switch to carry out action
 
     switch (getSpecialValueOptionPrompt) {
       case 1:
@@ -101,20 +98,6 @@ var getSpecialValue = function () {
     }
 };
 
-// var GetCharacterSet = function () {
-
-//   debugger;
-//   var charsettemp = getCaseValueOptionPrompt;
-
-//   if (getCaseValueOptionPrompt = "UPPERCASE"){
-//     charsettemp = uppercaseCharSet;
-//   } 
-//   else if (getCaseValueOptionPrompt = "lowercase") {
-//     charsettemp = lowercaseCharSet;
-//   }
-//   return charsettemp;
-// };
-
 
 // password values here
 var UserPassword ={
@@ -122,29 +105,64 @@ var UserPassword ={
     CaseValue: getCaseValue(),
     numeric: getNumericValue(),
     specialCharacter: getSpecialValue(),
-    charSet: "",
-}
+};
 
 
+var generatePassword = function () {
+
+  // start with empty string for character set
+  var concatString = "";
+  // var concatString2 = "";
+
+  // Check to see if case value is set to UPPERCASE
+  if (UserPassword.CaseValue === "UPPERCASE") {
+    concatString = concatString.concat(uppercaseCharSet);
+
+    // if it is UPPERCASE - Also check to see if numeric is set to yes
+    if (UserPassword.numeric === "Numeric"){
+      concatString = concatString.concat(numericCharSet);
+    }
+
+    // Also check to see if UPPERCASE incluse special characters
+    if (UserPassword.specialCharacter === "special") {
+      concatString = concatString.concat(specialCharset);
+    }
+
+  }
+    // check to see if case value was lowercase
+    if (UserPassword.CaseValue === "lowercase") {
+      concatString = concatString.concat(lowercaseCharSet);
  
 
+    // if it is lowercase - Also check to see if numeric is set to yes
+    if (UserPassword.numeric === "Numeric"){
+      concatString = concatString.concat(numericCharSet);
+    }
 
+    // Also check to see if lowercase incluse special characters
+    if (UserPassword.specialCharacter === "special") {
+      concatString = concatString.concat(specialCharset);
+    }
+  }
 
-console.log("Your password length has been recorded as " + UserPassword.length );
-console.log("you have chosen your character case type as " + UserPassword.CaseValue);
-console.log("You have chosen your numeric value as " + UserPassword.numeric);
-console.log("You have chosen this response for special characters " + UserPassword.specialCharacter);
-console.log("Your Password will be " + UserPassword.length + " characters in length." + " You have chosen " + UserPassword.CaseValue + ",  " + UserPassword.numeric + ", and " + UserPassword.specialCharacter +" characters.");
+  var passwordstring = "";
+  for ( var length = 0; length < UserPassword.length; length ++) {
+    passwordstring += concatString.charAt(Math.floor(Math.random() * length));
+  }
+  return passwordstring;
+  };
+
+// // Generate Password
+generatePassword ();
+
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  //var password = generatePassword();
-  var password = UserPassword.charSet;
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
-    passwordText.value = password;
+  passwordText.value = password;
 
 }
 
