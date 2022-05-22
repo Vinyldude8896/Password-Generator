@@ -1,5 +1,5 @@
 
-![Password Generator] (./Password_Generator_Screenshot.png)
+<img src="./Password_Generator_Screenshot.png" alt="Getting Started" />
 
 Password Generator
 
