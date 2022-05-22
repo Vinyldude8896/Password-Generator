@@ -1,6 +1,10 @@
+
+![Password Generator] (./Password_Generator_Screenshot.png)
+
 Password Generator
 
 This application was designed with the intention to generate a unique random password based on the users input criteria.
+
 
 
 input criteria asks 
